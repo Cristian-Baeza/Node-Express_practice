@@ -1,7 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const campsiteRouter = require('./routes/campsiteRouter');
-
+const promotionRouter = require('./routes/promotionRouter');
+const partnerRouter = require('./routes/partnerRouter')
 
 const hostname = 'localhost';
 const port = 3000;
@@ -9,41 +10,9 @@ const port = 3000;
 const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
-
 app.use('/campsites', campsiteRouter);
-
-
-
-// these endpoints will be with route parameter at end of path. 
-// This will allow us to store what client sends as route param
-// named campsiteid
-
-// had to delete them to implement them on campsiterouter.js in WS!
-
-// app.get('/campsites/:campsiteId', (req, res) => {
-//   res.end(`Will send details of the campsite: ${req.params.campsiteId} to you`);
-// });
-
-// app.post('/campsites/:campsiteId', (req, res) => {
-//   res.statusCode = 403;
-//   res.end(`POST operation not supported on /campsites/${req.params.campsiteId}`);
-// });
-
-// app.put('/campsites/:campsiteId', (req, res) => {
-//   res.write(`Updating the campsite: ${req.params.campsiteId}\n`);
-//   res.end(`Will update the campsite: ${req.body.name}
-//       with description: ${req.body.description}`);
-// });
-
-// app.delete('/campsites/:campsiteId', (req, res) => {
-//   res.end(`Deleting campsite: ${req.params.campsiteId}`);
-// });
-
-///////////////
-
-
-
-
+app.use('/promotions', promotionRouter);
+app.use('/partners', partnerRouter);
 
 app.use(express.static(__dirname + '/public')); // the __ refers to absolute path in Node
 
@@ -56,3 +25,6 @@ app.use((req, res) => {
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+
+
